@@ -21,6 +21,11 @@ type UserRelation struct {
 	User2  string
 	status int8 //1关注 0未关注
 }
+type UserDoLike struct {
+	Token  string `json:"token"`
+	ToName string `json:"toname"`
+	Status string `json:"status"`
+}
 
 func (UserRelation) TableName() string {
 	return "user_relation"
@@ -41,4 +46,8 @@ type UserRegister struct {
 	UserName   string `json:"username" binding:"required"`
 	PassWord   string `json:"password" binding:"required"`
 	RePassWord string `json:"repassword" binding:"required"`
+}
+type UserLogin struct {
+	UserName string `json:"username" binding:"required"`
+	PassWord string `json:"password" binding:"required"`
 }

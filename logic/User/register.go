@@ -1,6 +1,7 @@
 package User
 
 import (
+	"errors"
 	"forum/common"
 	"forum/dao/mysql"
 	"forum/model"
@@ -22,6 +23,14 @@ func Register(c *gin.Context) {
 		c.JSON(-1, common.Message{
 			Code: 0,
 			Msg:  "error",
+		})
+		return
+	}
+	user := mysql.FindByName(Info.UserName)
+	if user.UserName != "" {
+		c.JSON(-1, common.Message{
+			Code: -1,
+			Msg:  errors.New("该用户已经存在").Error(),
 		})
 		return
 	}

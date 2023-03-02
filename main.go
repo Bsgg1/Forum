@@ -3,6 +3,7 @@ package main
 import (
 	"forum/common"
 	"forum/dao/mysql"
+	"forum/dao/redis"
 	"forum/routers"
 )
 
@@ -13,6 +14,7 @@ func main() {
 	}
 	mysql.InitMysql()
 	mysql.GenModel()
+	redis.InitRedis()
 	r := routers.Router()
 	r.Run("localhost:8080")
 }

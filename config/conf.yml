@@ -1,0 +1,8 @@
+Mysql:
+  DNS: root:123456@tcp(120.53.124.80:3306)/forum?charset=utf8mb4&parseTime=True&loc=Local
+Redis:
+  Addr: "120.53.124.80:6379"
+  Password: ""
+  DB: 0
+  PoolSize: 30
+  MinIdleConn: 30

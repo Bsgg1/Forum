@@ -1,25 +1,19 @@
 package redis
 
-import (
-	"forum/common"
-	"github.com/go-redis/redis"
-)
+import "time"
 
-func Rank(key, member string) (int64, error) {
-	rank := RD.ZRank(key, member)
-	if rank == nil {
-		return -1, common.RepeatedFollow
-	}
-	return rank.Val(), nil
+func FindUser(key string) (int, error) {
+	return RD.Get(key).Int()
 }
-func AddLike(key, member string, score float64) error {
-	return RD.ZAdd(key, redis.Z{
-		Score:  score,
-		Member: member,
-	}).Err()
-
+func AddNotExistUser(key string) error {
+	return RD.Set(key, "1", time.Minute).Err()
 }
-
-func DelLike() {
-
+func FindRelation(key, member string) (bool, error) {
+	return RD.SIsMember(key, member).Result()
+}
+func AddRelation(key, member string) (int64, error) {
+	return RD.SAdd(key, member).Result()
+}
+func DelRelation(key, member string) (int64, error) {
+	return RD.SRem(key, member).Result()
 }

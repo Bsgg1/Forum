@@ -19,7 +19,7 @@ type UserRelation struct {
 	*gorm.Model
 	User1  string
 	User2  string
-	status int8 //1关注 0未关注
+	Status int8 //1关注 0未关注
 }
 type UserDoLike struct {
 	Token  string `json:"token"`

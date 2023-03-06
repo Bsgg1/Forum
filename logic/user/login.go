@@ -1,4 +1,4 @@
-package User
+package user
 
 import (
 	"forum/common"
@@ -11,9 +11,9 @@ import (
 func Login(c *gin.Context) {
 	var req model.UserLogin
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(-1, common.Message{
-			Code: 0,
-			Msg:  err.Error(),
+		c.JSON(200, common.Message{
+			Code: -1,
+			Msg:  "无效的参数",
 		})
 		return
 	}
@@ -26,18 +26,9 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	j := middleware.NewJWT()
-	token, err := j.GenToken(user.UserName, user.ID)
-	if err != nil {
-		c.JSON(-1, common.Message{
-			Code: 0,
-			Msg:  "获取token失败",
-		})
-	}
-	c.JSON(0, common.Message{
-		Code: 1,
-		Msg:  token,
+	tokenString, _ := middleware.GenToken(user.UserName, user.ID)
+	c.JSON(200, common.Message{
+		Code: 0,
+		Msg:  tokenString,
 	})
-	parseToken, _ := j.ParseToken(token)
-	c.JSON(0, parseToken)
 }

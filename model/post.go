@@ -4,10 +4,9 @@ import "gorm.io/gorm"
 
 type Post struct {
 	*gorm.Model
-	UserId       uint
-	Content      string
-	LikeCount    int64
-	CommentCount int64
+	UserId    uint   `json:"userid"`
+	Content   string `json:"content"`
+	LikeCount int64  `json:"likecount"`
 }
 type PostRelation struct {
 	*gorm.Model
